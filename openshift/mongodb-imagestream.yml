@@ -5,7 +5,6 @@ metadata:
     openshift.io/display-name: MongoDB
   name: ocp-mongodb
 spec:
-  dockerImageRepository: "mongo"
   tags:
   - annotations: null
     from:
@@ -18,7 +17,7 @@ spec:
       kind: ImageStreamTag
       name: "3.4.9"
     importPolicy: {}
-    name: "3.4"
+    name: "3.4.x"
   - annotations: null
     from:
       kind: DockerImage

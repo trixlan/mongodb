@@ -106,14 +106,9 @@ objects:
           - containerPort: 27017
             protocol: TCP
           readinessProbe:
-            exec:
-              command:
-              - /bin/sh
-              - -i
-              - -c
-              - mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD
-                --eval="quit()"
             initialDelaySeconds: 3
+            tcpSocket:
+              port: 27017
             timeoutSeconds: 1
           resources:
             limits:
@@ -123,14 +118,19 @@ objects:
             privileged: false
           terminationMessagePath: /dev/termination-log
           volumeMounts:
-          - mountPath: /
-            name: ${DATABASE_SERVICE_NAME}-data
+          - mountPath: /data/configdb
+            name: ${DATABASE_SERVICE_NAME}-config
+          - mountPath: /data/db
+            name: ${DATABASE_SERVICE_NAME}-db
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         volumes:
         - emptyDir:
             medium: ""
-          name: ${DATABASE_SERVICE_NAME}-data
+          name: ${DATABASE_SERVICE_NAME}-config
+        - emptyDir:
+            medium: ""
+          name: ${DATABASE_SERVICE_NAME}-db
     triggers:
     - imageChangeParams:
         automatic: true
@@ -186,9 +186,9 @@ parameters:
   displayName: Name of MongoDB Image
   name: MONGODB_IMAGE
   value: ocp-mongodb
-- description: Version of MongoDB image to be used (3.4 or latest).
+- description: Version of MongoDB image to be used (3.4.x or latest).
   displayName: Version of MongoDB Image
   name: MONGODB_VERSION
   required: true
-  value: "3.4"
+  value: "3.4.x"
 
