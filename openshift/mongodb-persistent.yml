@@ -153,7 +153,7 @@ objects:
                   protocol: TCP
               imagePullPolicy: IfNotPresent
               volumeMounts:
-                - mountPath: /data
+                - mountPath: /data/db
                   name: '${DATABASE_SERVICE_NAME}-data'
               capabilities: {}
               image: ' '
