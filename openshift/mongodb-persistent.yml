@@ -153,7 +153,7 @@ objects:
                   protocol: TCP
               imagePullPolicy: IfNotPresent
               volumeMounts:
-                - mountPath: /var/lib/mongodb/data
+                - mountPath: /data
                   name: '${DATABASE_SERVICE_NAME}-data'
               capabilities: {}
               image: ' '
@@ -206,7 +206,7 @@ parameters:
   - name: MONGODB_DATABASE
     displayName: MongoDB Database Name
     description: Name of the MongoDB database accessed.
-    value: sampledb
+    value: mongodb
     required: true
   - name: MONGODB_ADMIN_PASSWORD
     displayName: MongoDB Admin Password
