@@ -75,17 +75,7 @@ objects:
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: ${DATABASE_SERVICE_NAME}-config
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: ${VOLUME_CAPACITY_DB}
-  - apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: ${DATABASE_SERVICE_NAME}-db
+      name: ${DATABASE_SERVICE_NAME}-data
     spec:
       accessModes:
       - ReadWriteOnce
@@ -170,9 +160,9 @@ objects:
           dnsPolicy: ClusterFirst
           restartPolicy: Always
           volumes:
-            - emptyDir:
-                medium: ''
-              name: '${DATABASE_SERVICE_NAME}-data'
+          - name: '${DATABASE_SERVICE_NAME}-data'
+            persistentVolumeClaim:
+              claimName: ${DATABASE_SERVICE_NAME}
       triggers:
         - imageChangeParams:
             automatic: true
