@@ -153,7 +153,7 @@ objects:
                   protocol: TCP
               imagePullPolicy: IfNotPresent
               volumeMounts:
-                - mountPath: /var/lib/mongodb
+                - mountPath: /data
                   name: '${DATABASE_SERVICE_NAME}-data'
               capabilities: {}
               image: ' '
