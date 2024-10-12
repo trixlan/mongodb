@@ -2,7 +2,7 @@ kind: Template
 apiVersion: template.openshift.io/v1
 metadata:
   annotations:
-    openshift.io/display-name: MongoDB (Ephemeral)
+    openshift.io/display-name: MongoDB (Persistent)
     openshift.io/documentation-url: 'https://docs.okd.io/latest/using_images/db_images/mongodb.html'
     tags: 'database,mongodb'
     description: >-
@@ -162,7 +162,7 @@ objects:
           volumes:
           - name: '${DATABASE_SERVICE_NAME}-data'
             persistentVolumeClaim:
-              claimName: ${DATABASE_SERVICE_NAME}
+              claimName: ${DATABASE_SERVICE_NAME}-data
       triggers:
         - imageChangeParams:
             automatic: true
